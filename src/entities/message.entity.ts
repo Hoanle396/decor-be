@@ -12,7 +12,7 @@ export class Message extends BaseEntity {
   id: string;
 
   @CreateDateColumn()
-  createAt: Date;
+  createdAt: Date;
 
   @Column('text')
   message: string;

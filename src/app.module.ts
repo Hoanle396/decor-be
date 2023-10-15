@@ -5,9 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
-import { Users } from './entities/user.entity';
+import { Users } from './entities/users.entity';
 import { UsersModule } from './users/users.module';
 import { Message } from './entities/message.entity';
+import { Post } from './entities/post.entity';
+import { Category } from './entities/category.entity';
+import { Comments } from './entities/comments.entity';
+import { Images } from './entities/images.entity';
 
 @Module({
   imports: [
@@ -22,7 +26,7 @@ import { Message } from './entities/message.entity';
       username: process.env.DATABASE_USER || 'postgre',
       password: process.env.DATABASE_PASSWORD || 'postgre',
       database: process.env.DATABASE_DBNAME || 'game-be',
-      entities: [Users, Message],
+      entities: [Users, Message, Post, Category, Comments, Images],
       synchronize: true,
       autoLoadEntities: true,
       logging: true,
