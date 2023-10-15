@@ -15,7 +15,6 @@ import { Response } from 'express';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { GoogleUserDto } from './dto/login-google.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 import { LoginDto } from './dto/login.dto';
