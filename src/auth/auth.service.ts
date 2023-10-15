@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { Role } from 'src/role/user.enum';
 @Injectable()
 export class AuthService {
   constructor(
@@ -37,6 +38,7 @@ export class AuthService {
   async register(users: CreateUserDto): Promise<any> {
     try {
       users.password = await bcrypt.hash(users.password, 12);
+      users.roles = Role.User;
       const { password, ...result } = await this.usersService.save(users);
       return result;
     } catch {

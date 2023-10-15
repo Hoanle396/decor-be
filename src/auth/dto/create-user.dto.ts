@@ -13,9 +13,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   email: string;
 
-  @ApiProperty()
-  @IsEnum(Role)
-  @NotEquals(Role.Admin)
   roles: Role;
 
   @ApiProperty()
