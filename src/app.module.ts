@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { Users } from './entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { Message } from './entities/message.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { UsersModule } from './users/users.module';
       username: process.env.DATABASE_USER || 'postgre',
       password: process.env.DATABASE_PASSWORD || 'postgre',
       database: process.env.DATABASE_DBNAME || 'game-be',
-      entities: [Users, URL],
+      entities: [Users, Message],
       synchronize: true,
       autoLoadEntities: true,
       logging: true,
