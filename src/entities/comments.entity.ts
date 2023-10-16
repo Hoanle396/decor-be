@@ -21,11 +21,11 @@ export class Comments extends BaseEntity {
   post: Post;
 
   @ManyToOne(() => Users, (users) => users.id)
-  createBy: Users;
+  createdBy: Users;
 
   @CreateDateColumn()
-  createAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updateAt: Date;
+  updatedAt: Date;
 }

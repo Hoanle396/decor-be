@@ -13,6 +13,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { GetPagination, Pagination } from 'src/utils/paginate';
+import { CreateCommentDto } from './dto/create-comments.dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostService } from './post.service';
 
@@ -39,6 +40,31 @@ export class PostController {
   @ApiQuery({ name: 'limit', type: 'number', required: false })
   async findAll(@GetPagination() pagination: Pagination) {
     return this.postService.findAll(pagination);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Post(':id')
+  async comments(
+    @Param('id') id: string,
+    @Body() commentsDto: CreateCommentDto,
+    @Req() req
+  ) {
+    return await this.postService.comments(id, commentsDto, req.user);
+  }
+
+  @Get('comments/:id')
+  @ApiQuery({ name: 'skip', type: 'number', required: false })
+  @ApiQuery({ name: 'limit', type: 'number', required: false })
+  async findComment(
+    @Param('id') id: string,
+    @GetPagination() pagination: Pagination
+  ) {
+    return await this.postService.findComment(
+      id,
+      pagination.limit,
+      pagination.skip
+    );
   }
 
   @Get(':id')

@@ -2,18 +2,19 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-// import { UsersService } from 'src/users/users.service';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { Post } from 'src/entities/post.entity';
-import { DataSource, ILike, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Images } from 'src/entities/images.entity';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Category } from 'src/entities/category.entity';
+import { Comments } from 'src/entities/comments.entity';
+import { Images } from 'src/entities/images.entity';
+import { Post } from 'src/entities/post.entity';
 import { Users } from 'src/entities/users.entity';
 import { Pagination, ResponsePaginate } from 'src/utils/paginate';
+import { DataSource, Repository } from 'typeorm';
+import { CreateCommentDto } from './dto/create-comments.dto';
+import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostService {
@@ -21,7 +22,9 @@ export class PostService {
     private dataSource: DataSource,
     private cloudService: CloudinaryService,
     @InjectRepository(Post)
-    private readonly postRepository: Repository<Post>
+    private readonly postRepository: Repository<Post>,
+    @InjectRepository(Comments)
+    private readonly commentsRepository: Repository<Comments>
   ) {}
 
   async create(
@@ -109,11 +112,38 @@ export class PostService {
     });
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async comments(id: string, { text }: CreateCommentDto, user: Users) {
+    const blog = await this.postRepository.findOneBy({ id });
+    if (blog) {
+      const comments = new Comments();
+      comments.post = blog;
+      comments.createdBy = user;
+      comments.text = text;
+      return await this.commentsRepository.save(comments);
+    }
+    throw new NotFoundException();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async findComment(id: string, take, skip) {
+    const blog = await this.postRepository.findOneBy({ id });
+    if (blog) {
+      const [rows, count] = await this.commentsRepository.findAndCount({
+        where: { post: { id: blog.id } },
+        relations: { createdBy: true },
+        take,
+        skip,
+      });
+      return {
+        meta: {
+          page: skip / take + 1,
+          totalItems: count,
+          totalPage: Math.ceil(count / take),
+          message: 'Get data successfully',
+          status: 200,
+        },
+        data: rows,
+      };
+    }
+    throw new NotFoundException();
   }
 }
