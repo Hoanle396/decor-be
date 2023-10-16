@@ -17,7 +17,7 @@ import { CreateCommentDto } from './dto/create-comments.dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostService } from './post.service';
 
-@Controller('api/post')
+@Controller('post')
 @ApiTags('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}

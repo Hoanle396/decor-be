@@ -19,8 +19,8 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 import { LoginDto } from './dto/login.dto';
 
-@ApiTags('/api/auth')
-@Controller('/api/auth')
+@ApiTags('/auth')
+@Controller('/auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,

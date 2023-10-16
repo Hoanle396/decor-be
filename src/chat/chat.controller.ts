@@ -15,13 +15,13 @@ import { ChatService } from './chat.service';
 
 import { CreateMessageDTO } from './dto/Create-message.dto';
 
-@ApiTags('api/chat')
-@Controller()
+@ApiTags('chat')
+@Controller('chat')
 @ApiBearerAuth()
 export class ChatController {
   constructor(private messageService: ChatService) {}
 
-  @Post('api/message')
+  @Post('message')
   @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe())
   async createMessage(@Body() data: CreateMessageDTO, @Request() req) {
@@ -29,7 +29,7 @@ export class ChatController {
     return await this.messageService.createMessage(data);
   }
 
-  @Get('api/conversation')
+  @Get('conversation')
   @UseGuards(JwtAuthGuard)
   async index(
     @Query('with') convoWith: string,
