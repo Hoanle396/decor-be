@@ -12,6 +12,8 @@ import { Post } from './entities/post.entity';
 import { Category } from './entities/category.entity';
 import { Comments } from './entities/comments.entity';
 import { Images } from './entities/images.entity';
+import { PostModule } from './post/post.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -46,6 +48,8 @@ import { Images } from './entities/images.entity';
     AuthModule,
     UsersModule,
     ChatModule,
+    PostModule,
+    CloudinaryModule,
   ],
 })
 export class AppModule {}
