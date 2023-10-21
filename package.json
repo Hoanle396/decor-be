@@ -67,9 +67,7 @@
     "streamifier": "^0.1.1",
     "swagger": "^0.7.5",
     "swagger-ui-express": "^4.4.0",
-    "typeorm": "^0.3.7"
-  },
-  "devDependencies": {
+    "typeorm": "^0.3.7",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
