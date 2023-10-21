@@ -5,13 +5,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { Category } from 'src/entities/category.entity';
-import { Comments } from 'src/entities/comments.entity';
-import { Images } from 'src/entities/images.entity';
-import { Post } from 'src/entities/post.entity';
-import { Users } from 'src/entities/users.entity';
-import { Pagination, ResponsePaginate } from 'src/utils/paginate';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { Category } from '../entities/category.entity';
+import { Comments } from '../entities/comments.entity';
+import { Images } from '../entities/images.entity';
+import { Post } from '../entities/post.entity';
+import { Users } from '../entities/users.entity';
+import { Pagination, ResponsePaginate } from '../utils/paginate';
 import { DataSource, Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/create-comments.dto';
 import { CreatePostDto } from './dto/create-post.dto';

@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiConsumes, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { GetPagination, Pagination } from 'src/utils/paginate';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { GetPagination, Pagination } from '../utils/paginate';
 import { CreateCommentDto } from './dto/create-comments.dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostService } from './post.service';

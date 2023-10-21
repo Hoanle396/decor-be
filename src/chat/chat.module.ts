@@ -1,7 +1,7 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Message } from 'src/entities/message.entity';
-import { Users } from 'src/entities/users.entity';
+import { Message } from '../entities/message.entity';
+import { Users } from '../entities/users.entity';
 import { ChatController } from './chat.controller';
 import { ChatGateway } from './chat.gateway';
 import { ChatService } from './chat.service';

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Role } from 'src/role/user.enum';
+import { Role } from '../role/user.enum';
 @Injectable()
 export class AuthService {
   constructor(

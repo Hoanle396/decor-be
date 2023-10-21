@@ -1,4 +1,4 @@
-import { Role } from 'src/role/user.enum';
+import { Role } from '../role/user.enum';
 import {
   BaseEntity,
   Column,

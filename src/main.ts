@@ -3,7 +3,6 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as dayjs from 'dayjs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,10 +20,7 @@ async function bootstrap() {
   SwaggerModule.setup('/', app, document);
 
   await app.listen(4000).then(() => {
-    Logger.verbose(
-      `${dayjs().format('YYYY-MM-DD HH:mm:ssZ')}`,
-      'APPLICATION STARTED'
-    );
+    Logger.verbose(`${new Date()}`, 'APPLICATION STARTED');
   });
 }
 bootstrap();

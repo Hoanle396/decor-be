@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/auth/dto/create-user.dto';
-import { Users } from 'src/entities/users.entity';
-import { Pagination, ResponsePaginate } from 'src/utils/paginate';
+import { CreateUserDto } from '../auth/dto/create-user.dto';
+import { Users } from '../entities/users.entity';
+import { Pagination, ResponsePaginate } from '../utils/paginate';
 
 import { Repository } from 'typeorm';
 
