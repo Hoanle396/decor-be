@@ -19,7 +19,7 @@ export class ChatService {
   constructor(
     @InjectRepository(Message) private messageRepository: Repository<Message>,
     @InjectRepository(Users) private userRepository: Repository<Users>,
-    @Inject(CACHE_MANAGER) private cacheManager,
+    // @Inject(CACHE_MANAGER) private cacheManager,
     private gateway: ChatGateway
   ) {}
   private async checkIfUsersExist(from: string, to: string): Promise<void> {
@@ -36,9 +36,9 @@ export class ChatService {
       );
     }
   }
-  private async getRecipientToken(email: string): Promise<boolean> {
-    return this.cacheManager.get(email);
-  }
+  // private async getRecipientToken(email: string): Promise<boolean> {
+  //   return this.cacheManager.get(email);
+  // }
   async createMessage(data: CreateMessageDTO) {
     const { to, from } = data;
     await this.checkIfUsersExist(from, to);

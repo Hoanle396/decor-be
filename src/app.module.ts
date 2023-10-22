@@ -23,15 +23,22 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST || '127.0.0.1',
-      port: Number(process.env.DATABASE_PORT) || 5432,
-      username: process.env.DATABASE_USER || 'postgres',
-      password: process.env.DATABASE_PASSWORD || 'postgres',
-      database: process.env.DATABASE_DBNAME || 'decor',
+      url: process.env.DB_URL,
+      host: process.env.DATABASE_HOST,
+      port: Number(process.env.DATABASE_PORT),
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_DBNAME,
       entities: [Users, Message, Post, Category, Comments, Images],
       synchronize: true,
       autoLoadEntities: true,
       logging: true,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     }),
     // RedisModule.forRoot({
     //   readyLog: true,
