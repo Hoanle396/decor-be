@@ -24,7 +24,9 @@ export class PostService {
     @InjectRepository(Post)
     private readonly postRepository: Repository<Post>,
     @InjectRepository(Comments)
-    private readonly commentsRepository: Repository<Comments>
+    private readonly commentsRepository: Repository<Comments>,
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>
   ) {}
 
   async create(
@@ -71,10 +73,77 @@ export class PostService {
       const [data, count] = await this.postRepository.findAndCount({
         skip: paginate.skip,
         take: paginate.limit,
+        order: { id: 'desc' },
         relations: {
           images: true,
           createdBy: true,
           category: true,
+        },
+      });
+      return {
+        meta: {
+          page: paginate.skip / paginate.limit + 1,
+          totalItems: count,
+          totalPage: Math.ceil(count / paginate.limit),
+          message: 'Get data successfully',
+          status: 200,
+        },
+        data: data,
+      };
+    } catch {
+      return {
+        meta: {
+          page: paginate.skip / paginate.limit + 1,
+          totalItems: 0,
+          totalPage: Math.ceil(0 / paginate.limit),
+          message: 'Get data successfully',
+          status: 200,
+        },
+        data: [],
+      };
+    }
+  }
+
+  async findCategory() {
+    try {
+      const [data, count] = await this.categoryRepository.findAndCount({
+        relations: {
+          posts: {},
+        },
+      });
+      return {
+        meta: {
+          totalItems: count,
+          message: 'Get data successfully',
+          status: 200,
+        },
+        data: data,
+      };
+    } catch (error) {
+      return {
+        meta: {
+          totalItems: 0,
+          message: 'Get data successfully',
+          status: 200,
+        },
+        data: [],
+      };
+    }
+  }
+
+  async findByCategory(
+    paginate: Pagination,
+    id: string
+  ): Promise<ResponsePaginate<Post>> {
+    try {
+      const [data, count] = await this.postRepository.findAndCount({
+        where: { category: { id } },
+        skip: paginate.skip,
+        take: paginate.limit,
+        order: { id: 'desc' },
+        relations: {
+          images: true,
+          createdBy: true,
         },
       });
       return {

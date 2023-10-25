@@ -67,6 +67,20 @@ export class PostController {
     );
   }
 
+  @Get('category')
+  async findCategory() {
+    return this.postService.findCategory();
+  }
+
+  @Get('category/:id')
+  @ApiQuery({ name: 'skip', type: 'number', required: false })
+  @ApiQuery({ name: 'limit', type: 'number', required: false })
+  async findByCategory(
+    @GetPagination() pagination: Pagination,
+    @Param('id') id: string
+  ) {
+    return this.postService.findByCategory(pagination, id);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.postService.findOne(id);
